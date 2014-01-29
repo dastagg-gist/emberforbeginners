@@ -11,7 +11,21 @@ App.IndexRoute = Ember.Route.extend({
 });
 
 App.IndexController = Ember.ObjectController.extend({
-    subredditHeader: "aww"
+
+    subredditHeader: "aww",
+
+    loadList: function() {
+        // grab the value from the input field of the form
+        var value = this.get('subreddit');
+
+        if(value) {
+            this.set('subredditHeader', value);
+            this.set('model', App.RedditLink.findAll(value));
+
+            // clear out the form
+            this.set('subreddit', '');
+        }
+    }
 });
 
 App.RedditLink = Ember.Object.extend({
